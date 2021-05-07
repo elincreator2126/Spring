@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring_mybatis.EmpDAO">
+
+<select id="getOneEmp" resultType="empVO" parameterType="int">
+SELECT * FROM EMPLOYEES WHERE EMPLOYEE_id = #{employee_id}
+</select>
+
+<select id="getAllEmp" resultType="empVO">
+SELECT * FROM EMPLOYEES
+</select>
+
+<select id="getPagingEmp" parameterType="int[]" resultType="empVO">
+select rownum r, employee_id, first_name, salary 
+	from (select * from employees order by hire_date) imsi
+	)
+where r between
+<foreach collection="array" item="num" separator="and"> 
+#{num}
+</foreach> 
+</select>
+
+
+<select id="checkEmp" parameterType="empVO" resultType="empVO">
+SELECT EMPLOYEE_ID, EMAIL FROM EMPLOYEES
+WHERE EMPLOYEE_ID=#{employee_id}
+or email = #{email}
+</select>
+
+<select id="checkJob" parameterType="empVO" resultType="String">
+SELECT job_id FROM jobs
+WHERE job_ID=#{job_id}
+</select>
+
+ <insert id="insertEmp" parameterType="empVO">
+ INSERT INTO EMPLOYEES{EMPLOYEE_ID, FIRST_NAME, EMAIL, JOB_ID, 
+ values(#{employee_id}, #{first_name}, #{last_name}, #{email}, #{job_id}, sysdate)
+ </insert>
+ 
+ 
+<!-- <select id="manyEmp" resultType="empVO" > 
+<![CDATA[SELECT * FROM EMPLOYEES where employee_id < 200]]>
+</select>
+
+<insert id="insertEmp" parameterType="emp">
+insert into employees values(
+#{employee_id},#{first_name},#{last_name}, #{email}, 
+#{phone_number}, sysdate, #{job_id}, #{salary}, null, 
+#{manager_id}, #{department_id} )
+</insert>
+
+<update id="updateEmp" parameterType="emp"> 
+update employees 
+set first_name=(#{first_name}) 
+where employee_id = #{employee_id}  
+</update>
+
+<delete id="deleteEmp" parameterType="int">
+delete employees where employeep_id=#{a} 
+
+</delete>
+
+<select id="cnt" resultType="int">
+	select count(*) from employees
+</select>
+ 
+int cnt = session.selectOne("kdigital.cnt")
+<select id="pageEmp" resultType="emp" parameterType="int[]">
+select r, employee_id, first_name 
+	from (select rownum r, employee_id, first_name 
+		from (select * from employees order by hire_date desc) 
+		)
+		where r between 
+		<foreach collection="array" item="num" separator="and">
+		#{num} 
+		</foreach>
+		
+</select>
+
+<insert id ="insertEmp2" parameterType="emp" >
+<selectKey resultType="int" keyProperty="employee_id" order ="BEFORE">
+	select emp_seq.nextval from dual 
+</selectKey>
+
+==> emp.setEmployee_id(select emp_seq.nextval from dual )
+
+insert into employees values(
+#{employee_id},#{first_name},#{last_name}, #{email}, 
+#{phone_number}, sysdate, #{job_id}, #{salary}, null, 
+#{manager_id}, #{department_id} )
+</insert>
+
+
+create sequence emp_seq; 
+select emp_seq.nextval from dual; 
+
+insert into employees(emp_seq.nextval, .... )
+
+
+<select id="selectwithList" parameterType="java.util.List" resultType="emp">
+select employee_id, first_name, department_id 
+from employees
+where department_id in
+		<foreach collection="list" item="deptList" open="("  separator="," close=")">
+		#{deptList} 
+		</foreach>
+	
+</select>
+
+<update id="updatewithmap" parameterType="java.util.Map" >
+update employees
+set department_id=#{dept} , email = #{email}
+where employee_id=
+<if test="id == null" > 122 </if>
+<if test="id != null" > #{id} </if>
+
+	map.put("dept", "50");
+	map.put("email", "a2@b.com");
+	map.put("id", "2");
+
+</update>
+
+
+ -->
+</mapper>
+
+
+
+
+
