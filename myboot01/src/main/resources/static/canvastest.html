@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+//canvas 객체 
+window.onload = function(){
+	var samplecanvas = document.getElementById("samplecanvas"); //도화지
+	var samplecontext = samplecanvas.getContext("2d"); //붓
+	/*
+	samplecontext.font = "15px batang";
+	samplecontext.fillStyle='blue';
+	samplecontext.fillText("캔버스위에 글씨를 씁니다.", 100, 100);
+	samplecontext.fillRect(200, 200, 100, 50); //채우기
+	samplecontext.strokeStyle = "green";
+	samplecontext.lineWidth = 3;
+	samplecontext.strokeRect(300, 300, 50, 50); //윤곽선 
+	*/
+	
+	var sampleImage = new Image(); 
+	sampleImage.src = "/faceimages/song.jpg"; 
+	sampleImage.onload = function(){ //바로 실행되지 않고, sampleImage가 onload가 될 때까지 대기 
+		samplecontext.drawImage(sampleImage, 0, 0, sampleImage.width, sampleImage.height);
+		var copyImage = samplecontext.getImageData( 0, 0, sampleImage.width, sampleImage.height);
+		
+		var targetcanvas = document.getElementById("targetcanvas");
+		var targetcontext = targetcanvas.getContext("2d");
+		targetcontext.putImageData(copyImage, 50, 50);
+	
+	}//sampleImage onload end 
+	
+}//window onload end 
+
+</script>
+</head>
+<body>
+<h1> 캔버스 </h1>
+<canvas id="samplecanvas" width=400 height=400 style="border : solid 2px pink"></canvas>
+<canvas id="targetcanvas" width=400 height=400 style="border : solid 2px pink"></canvas>
+
+</body>
+</html>

@@ -14,7 +14,7 @@ import java.net.URLConnection;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NaverFaceService implements NaverService {
+public class NaverObjectDetectionService implements NaverService {
 //서비스를 컨트롤러가 호출 
 	
 	@Override
@@ -32,9 +32,9 @@ public class NaverFaceService implements NaverService {
 		        	
 		            String paramName = "image"; // 파라미터명은 image로 지정 (얼굴 인식 url 요구 파라미터 이름)
 		            String imgFile = "C:/kdigital/NaverClova/images/"+image; // 이부분
-		            //1. 다른 유명인 사진 2. 내 사진 3. 동물사진 4. 사물사진 5.two faces
 		            File uploadFile = new File(imgFile);
-		            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/celebrity"; // 유명인 얼굴 인식
+		            String apiURL = "https://naveropenapi.apigw.ntruss.com/vision-obj/v1/detect"; // 객체 인식
+		            
 		            URL url = new URL(apiURL);
 		            HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		            con.setUseCaches(false);
