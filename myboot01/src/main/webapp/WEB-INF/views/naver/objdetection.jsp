@@ -48,6 +48,14 @@ $(document).ready(function(){
 			//이름 : 99% 출력 
 			context.fillText
 			(names[i] +":" + parseInt(confidence[i]*100)+ "%", x1+10, y1+10);
+/* 			if(!(names[i]=="person")){
+				//이름 : 00% 출력
+				context.fillText(names[i]+" : " + parseInt(confidence[i]*100) + "%", x1, y1)
+				
+				//사각형 그려서 출력
+				context.strokeRect(x1, y1, x2-x1, y2-y1)
+			} */
+
 			
 			//사각형 그려서 출력 
 			context.strokeRect(x1, y1, x2-x1, y2-y1);
@@ -95,7 +103,7 @@ window.onload = function(){
 <div id="count"> </div>
 <div id="names"> </div>
 <div id="confidence"> </div>
-<canvas id="imagecanvas" width=500 height=500 style = "border : 2px solid red" ></canvas>
+<canvas id="imagecanvas" width=500 height=500 style = "border : 2px solid pink" ></canvas>
  
 </body>
 </html>

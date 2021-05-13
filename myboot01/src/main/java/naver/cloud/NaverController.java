@@ -19,7 +19,8 @@ public class NaverController {
 	NaverOCRService ocrservice; //이미지에서 텍스트 추출 (ocr)
 	@Autowired
 	NaverObjectDetectionService objdetectionservice; //객체탐지 
-	
+	@Autowired
+	NaverPoseService poseservice; //포즈분석
 	
 	@RequestMapping("/imagetest")
 	public String imagetest() {
@@ -147,6 +148,28 @@ public class NaverController {
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("objdetectionResult", result);
 			mv.setViewName("/naver/objdetection"); //
+			return mv; 
+		}
+		
+		@RequestMapping("/poseinput")
+		public ModelAndView poseinput() {		
+			File f = new File("C:\\kdigital\\NaverClova\\images");
+			String[] filelist = f.list();
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("filelist", filelist);
+			mv.setViewName("/naver/poseinput");
+			return mv; 
+
+		}
+		
+		
+		@RequestMapping(value="/pose", method=RequestMethod.GET)
+		public ModelAndView pose(String image) { //전달받는 face메소드가 매개변수가 선언되어 있어야 함. -> test로 전달 
+			//objdetection메소드 호출 => NaverFaceService에게 실행 요청 
+			String result = poseservice.test(image);//이미지에서 텍스트 추출 
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("poseResult", result);
+			mv.setViewName("/naver/pose"); //
 			return mv; 
 		}
 }
